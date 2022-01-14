@@ -15,7 +15,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../tpjena_fat.jar!/" />
+          <root url="jar://$MODULE_DIR$/../tpJena/tpjena_fat.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
