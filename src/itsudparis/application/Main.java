@@ -54,13 +54,23 @@ public class Main {
     /**
      * @param args rhe command line arguments
      */
-    public static void main(String[] args) {
-        String NS = "";
+    public static void main(String[] args) throws FileNotFoundException {
+        String NS = "http://www.semanticweb.org/valentin/ontologies/2022/0/untitled-ontology-7#";
         // lire le model a partir d'une ontologie
         Model model = JenaEngine.readModel("data/measures.owl");
+        String dataPath = "data/source/airparif/dataset/air-quality/version/2022-Jan-13/2022_%s.csv";
+        String[] filenames = new String[]{
+                String.format(dataPath, "CO"),
+                String.format(dataPath, "NOX"),
+                String.format(dataPath, "O3"),
+                String.format(dataPath, "PM25"),
+                String.format(dataPath, "SO2")
+        };
         if (model != null) {
-            //lire le Namespace de l’ontologie
-            NS = model.getNsPrefixURI("");
+            // create all instances from csv files
+            for (String filename: filenames) {
+                fillModelWithData(model, filename, NS);
+            }
             //apply owl rules on the model
             Model owlInferencedModel =
                     JenaEngine.readInferencedModelFromRuleFile(model, "data/owlrules.txt");
