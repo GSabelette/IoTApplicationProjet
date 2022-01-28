@@ -13,7 +13,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * @author DO.ITSUDPARIS
@@ -29,18 +31,42 @@ public class Main {
      * @throws FileNotFoundException in case file does not exist
      */
     private static void fillModelWithData(Model model, String filename, String NS) throws FileNotFoundException {
+        System.out.println(filename);
         InputStream inputStream = new FileInputStream(filename);
         Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8.name());
         String firstLine = scanner.nextLine();
         // N locations
         String[] locations = firstLine.split(",");
-
+        int n = 1;
 
         while (scanner.hasNextLine()) {
+            n++;
             String line = scanner.nextLine();
             String[] values = line.split(",");
+            if (line.endsWith(",")) {
+                int i = 0;
+                while (line.substring(line.length() - 1 - i).matches(",+")) {
+                    i++;
+                }
+                String[] tmp = values;
+                values = new String[values.length + i];
+                System.arraycopy(tmp, 0, values, 0, tmp.length);
+                for (int j = tmp.length; j < values.length; j++) {
+                    values[j] = "";
+                }
+
+            }
+            System.out.println("line " + n);
             // Date, Particle, Concentration1, Concentration2, ..., ConcentrationN
-            assert values.length == locations.length + 2;
+            if (values.length != (locations.length + 2)) {
+
+                System.out.println(line);
+                System.out.println(String.join(", ", values));
+                System.out.println("line length " + values.length);
+                System.out.println("n locations " + locations.length);
+                throw new IllegalArgumentException("Bad data format");
+            }
+
             for (int i = 0; i < locations.length; i++) {
                 String instanceName = values[1] + "Measure_" + values[0] +"_" + values[2+i];
                 JenaEngine.createInstanceOfClass(model, NS, "Measure", instanceName);
@@ -78,7 +104,7 @@ public class Main {
             Model inferedModel =
                     JenaEngine.readInferencedModelFromRuleFile(owlInferencedModel, "data/rules.txt");
 
-            System.out.println(JenaEngine.executeQueryFileWithParameter(inferedModel, "data/query.txt", "Thomas"));
+//            System.out.println(JenaEngine.executeQueryFileWithParameter(inferedModel, "data/query.txt", "Thomas"));
 
         } else {
             System.out.println("Error when reading model from ontology");
