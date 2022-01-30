@@ -21,8 +21,6 @@ import java.util.stream.Collectors;
  * @author DO.ITSUDPARIS
  */
 public class Main {
-
-
     /**
      * Create all instances and its properties for our Measures ontologie. The data are from a csv file.
      * @param model the model to fill.
@@ -104,12 +102,14 @@ public class Main {
             Model inferedModel =
                     JenaEngine.readInferencedModelFromRuleFile(owlInferencedModel, "data/rules.txt");
 
-//            System.out.println(JenaEngine.executeQueryFileWithParameter(inferedModel, "data/query.txt", "Thomas"));
-
+            String userInput;
+            Scanner scanner = new Scanner(System.in);
+            while ((userInput = scanner.nextLine()) != "q") {
+                System.out.println(JenaEngine.executeQueryFileWithParameter(inferedModel, "data/query.txt", userInput));
+            }
         } else {
             System.out.println("Error when reading model from ontology");
         }
-
     }
 }
 
