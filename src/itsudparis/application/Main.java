@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -76,6 +77,7 @@ public class Main {
                 JenaEngine.addValueOfDataTypeProperty(model, NS, instanceName, "Particle", values[1]);
                 JenaEngine.addValueOfDataTypeProperty(model, NS, instanceName, "Concentration", f);
                 JenaEngine.addValueOfDataTypeProperty(model, NS, instanceName, "Location", locations[i]);
+                JenaEngine.addValueOfDataTypeProperty(model, NS, instanceName, "AirQuality", "Correcte");
             }
         }
     }
@@ -110,8 +112,10 @@ public class Main {
 
             String userInput;
             Scanner scanner = new Scanner(System.in);
-            while ((userInput = scanner.nextLine()) != "q") {
+            System.out.println("Choose a location to know air quality:");
+            while (!Objects.equals(userInput = scanner.nextLine(), "q")) {
                 System.out.println(JenaEngine.executeQueryFileWithParameter(inferedModel, "data/query.txt", userInput));
+                System.out.println("Choose a location to know air quality:");
             }
         } else {
             System.out.println("Error when reading model from ontology");
