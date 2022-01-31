@@ -113,8 +113,8 @@ public class Main {
             String userInput;
             Scanner scanner = new Scanner(System.in);
             System.out.println("Choose a location to know air quality:");
-            while (!Objects.equals(userInput = scanner.nextLine(), "q")) {
-                System.out.println(JenaEngine.executeQueryFileWithParameter(inferedModel, "data/query.txt", userInput));
+            while (!Objects.equals(userInput = scanner.nextLine().trim(), "q")) {
+                System.out.println(JenaEngine.executeQueryFileWithParameter(inferedModel, "data/query.txt", String.format("\"%s\"^^xsd:string", userInput)));
                 System.out.println("Choose a location to know air quality:");
             }
         } else {
