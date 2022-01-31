@@ -8,5 +8,5 @@ WHERE {
  ?mesure ns:concentration ?concentration.
  ?mesure ns:location ?location.
  FILTER regex(?location, %PARAMETER%).
-}
+ }
 
