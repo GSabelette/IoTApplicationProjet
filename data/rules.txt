@@ -1,0 +1,20 @@
+@prefix ns: http://www.semanticweb.org/valentin/ontologies/2022/0/untitled-ontology-7#.
+@prefix rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#.
+@prefix rdfs: http://www.w3.org/2000/01/rdf-schema#.
+@prefix xsd: http://www.w3.org/2001/XMLSchema#.
+
+[rule1: (?per rdf:type ns:Personne) (?per ns:estFilsDe ?parent) ->  (?per rdf:type ns:Fils)]
+[rule2: (?per rdf:type ns:Personne) (?per ns:estFilleDe ?parent) ->  (?per rdf:type ns:Fille)]
+[rule3: (?per rdf:type ns:Personne) (?per ns:estFilsDe ?parent) ->  (?per ns:estEnfantDe ?parent)]
+[rule4: (?per rdf:type ns:Personne) (?per ns:estFilleDe ?parent) ->  (?per ns:estEnfantDe ?parent)]
+[rule5: (?per rdf:type ns:Personne) (?per ns:estEnfantDe ?parent) ->  (?per rdf:type ns:Enfant)]
+[rule6: (?per rdf:type ns:Personne) (?per ns:estEnfantDe ?parent) ->  (?parent ns:estParentDe ?per)]
+[rule7: (?per rdf:type ns:Personne) (?per ns:estMereDe ?parent) ->  (?parent rdf:type ns:Mere)]
+[rule8: (?per rdf:type ns:Personne) (?per ns:estPereDe ?parent) ->  (?parent rdf:type ns:Pere)]
+[rule9: (?per rdf:type ns:Personne) (?per ns:estMereDe ?parent) ->  (?parent ns:estParentDe ?per)]
+[rule10: (?per rdf:type ns:Personne) (?per ns:estPereDe ?parent) ->  (?parent ns:estParentDe ?per)]
+[rule11: (?per rdf:type ns:Personne) (?per ns:estPereDe ?parent) ->  (?parent rdf:type ns:Parent)]
+[rule12: (?per rdf:type ns:Personne) (?per ns:estFrereDe ?parent) (?parent rdf:type ns:Parent) ->  (?per rdf:type ns:Oncle)]
+[rule13: (?per rdf:type ns:Personne) (?per ns:estEnfantDe ?parent1) (?per ns:estEnfantDe ?parent2) (?parent1 ns:nationalite ?nat1) (?parent2 ns:nationalite ?nat2) equal(?nat1,?nat2) ->  (?per ns:nationalite ?nat1)]
+[rule14: (?per rdf:type ns:Personne) (?per ns:age ?age) greaterThan(?age, 60) -> (?per rdf:type ns:PersonneAge)]
+[rule15: (?per ns:estParentDe ?enfant) (?per ns:seMarierAvec ?per2)-> (?per2 ns:estParentDe ?enfant)]
