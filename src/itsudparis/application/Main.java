@@ -54,10 +54,8 @@ public class Main {
                 }
 
             }
-            System.out.println("line " + n);
             // Date, Particle, Concentration1, Concentration2, ..., ConcentrationN
             if (values.length != (locations.length + 2)) {
-
                 System.out.println(line);
                 System.out.println(String.join(", ", values));
                 System.out.println("line length " + values.length);
@@ -67,10 +65,17 @@ public class Main {
 
             for (int i = 0; i < locations.length; i++) {
                 String instanceName = values[1] + "Measure_" + values[0] +"_" + values[2+i];
+                Float f;
+                if (values[2+i].equals("")) {
+                    f = Float.NaN;
+                } else {
+                    f = Float.parseFloat(values[2 + i]);
+                }
                 JenaEngine.createInstanceOfClass(model, NS, "Measure", instanceName);
                 JenaEngine.addValueOfDataTypeProperty(model, NS, instanceName, "Date", values[0]);
                 JenaEngine.addValueOfDataTypeProperty(model, NS, instanceName, "Particle", values[1]);
-                JenaEngine.addValueOfDataTypeProperty(model, NS, instanceName, "Concentration", values[2 + i]);
+                JenaEngine.addValueOfDataTypeProperty(model, NS, instanceName, "Concentration", f);
+                JenaEngine.addValueOfDataTypeProperty(model, NS, instanceName, "Location", locations[i]);
             }
         }
     }
@@ -95,6 +100,7 @@ public class Main {
             for (String filename: filenames) {
                 fillModelWithData(model, filename, NS);
             }
+            System.out.println("End of instances creations");
             //apply owl rules on the model
             Model owlInferencedModel =
                     JenaEngine.readInferencedModelFromRuleFile(model, "data/owlrules.txt");

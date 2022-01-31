@@ -1,12 +1,15 @@
 PREFIX ns: <http://www.semanticweb.org/valentin/ontologies/2022/0/untitled-ontology-7#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX tg:<http://www.turnguard.com/functions#>
 
-SELECT ?concentration
+SELECT ?measure ?concentration ?particle ?date ?location
 WHERE {
- ?mesure rdf:type ns:mesure.
- ?mesure ns:concentration ?concentration.
- ?mesure ns:location ?location.
- FILTER regex(?location, %PARAMETER%).
+     ?measure rdf:type ns:Measure.
+     ?measure ns:Concentration ?concentration.
+     ?measure ns:Particle ?particle.
+     ?measure ns:Date ?date.
+     ?measure ns:Location ?location.
 }
-
