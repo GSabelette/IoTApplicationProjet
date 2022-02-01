@@ -5,7 +5,7 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX tg:<http://www.turnguard.com/functions#>
 
-SELECT ?date ?concentration ?particle ?loc
+SELECT ?date ?concentration ?particle ?airquality ?t
 WHERE {
      ?measure rdf:type ns:Measure.
      ?measure ns:Concentration ?concentration.
@@ -14,4 +14,6 @@ WHERE {
      {?measure ns:Location ?loc.
      FILTER (?loc = "%PARAMETER%"^^xsd:string)
      }
+     ?measure ns:AirQuality ?airquality.
+
 }
