@@ -15,5 +15,5 @@ WHERE {
      FILTER (?loc = "%PARAMETER%"^^xsd:string)
      }
      ?measure ns:AirQuality ?airquality.
-
+     ?measure ns:Threshold ?t.
 }
