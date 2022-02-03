@@ -12,7 +12,7 @@
 [rule4: (?meas rdf:type ns:Measure) (?meas ns:Particle "SO2") ->  (?meas rdf:type ns:SO2Measure)]
 [rule5: (?meas rdf:type ns:Measure) (?meas ns:Particle "NOX") ->  (?meas rdf:type ns:NOXMeasure)]
 [rule6: (?meas rdf:type ns:COMeasure) ->  (?meas ns:Threshold 10.0)]
-[rule7: (?meas rdf:type ns:O3Measure) ->  (?meas ns:Threshold 50.0)]
+[rule7: (?meas rdf:type ns:O3Measure) ->  (?meas ns:Threshold 250.0)]
 [rule8: (?meas rdf:type ns:PM25Measure) ->  (?meas ns:Threshold 25.0)]
 [rule9: (?meas rdf:type ns:SO2Measure) ->  (?meas ns:Threshold 300.0)]
 [rule10: (?meas rdf:type ns:NOXMeasure) ->  (?meas ns:Threshold 200.0)]
